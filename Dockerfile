@@ -16,16 +16,15 @@ RUN git clone https://github.com/alibaba/MongoShake.git -b ${VERSION} \
 
 FROM alpine:3.16.0
 
-ENV DIRPATH=/opt/mongo-shake
-WORKDIR ${DIRPATH}
-
 RUN addgroup -g 1000 -S monkeyray \
 &&  adduser -G monkeyray -u 1000 --disabled-password monkeyray \
-&&  mkdir -p ${DIRPATH} \
-&&  chown monkeyray:monkeyray -R ${DIRPATH}
+&&  mkdir -p /opt/mongo-shake \
+&&  chown monkeyray:monkeyray -R /opt/mongo-shake
 
-COPY --chown=monkeyray:monkeyray --from=builder /app/MongoShake/bin/ ${DIRPATH}/
-COPY --chown=monkeyray:monkeyray ./collector.conf ${DIRPATH}/
+WORKDIR /opt/mongo-shake
+
+COPY --chown=monkeyray:monkeyray --from=builder /app/MongoShake/bin/ /opt/mongo-shake/
+COPY --chown=monkeyray:monkeyray ./collector.conf /opt/mongo-shake/
 
 USER monkeyray
 
@@ -36,4 +35,5 @@ EXPOSE 9101
 # system_profile_port
 EXPOSE 9200
 
-CMD ["${DIRPATH}/collector", "-conf=${DIRPATH}/collector.conf", "-verbose=2"]
+ENTRYPOINT ["/opt/mongo-shake/collector"]
+CMD ["-conf=/opt/mongo-shake/collector.conf", "-verbose=2"]
