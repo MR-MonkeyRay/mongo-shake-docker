@@ -11,6 +11,7 @@ ARG VERSION=release-v2.6.6-20220323
 
 RUN git clone https://github.com/alibaba/MongoShake.git -b ${VERSION} \
 &&  cd MongoShake \
+&&  go get gopkg.in/yaml.v3 \
 &&  make linux
 
 FROM alpine:3.16.0
