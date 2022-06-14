@@ -1,4 +1,4 @@
-FROM golang:alpine3.15 AS builder
+FROM golang:1.18.3-alpine3.1 AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN git clone https://github.com/alibaba/MongoShake.git -b ${VERSION} \
 &&  cd MongoShake \
 &&  make linux
 
-FROM alpine:3.15.4
+FROM alpine:3.16.0
 
 ENV DIRPATH=/opt/mongo-shake
 WORKDIR ${DIRPATH}
