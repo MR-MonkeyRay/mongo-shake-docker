@@ -19,13 +19,13 @@ FROM alpine:3.16.0
 RUN addgroup -g 1000 -S monkeyray \
 &&  adduser -G monkeyray -u 1000 --disabled-password monkeyray \
 &&  mkdir -p /opt/mongo-shake \
+&&  curl -oL https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/collector.conf /opt/mongo-shake/\
+&&  curl -oL https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/receiver.conf /opt/mongo-shake/ \
 &&  chown monkeyray:monkeyray -R /opt/mongo-shake
 
 WORKDIR /opt/mongo-shake
 
 COPY --chown=monkeyray:monkeyray --from=builder /app/MongoShake/bin/ /opt/mongo-shake/
-ADD --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/collector.conf /opt/mongo-shake/
-ADD --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/receiver.conf /opt/mongo-shake/
 
 USER monkeyray
 
