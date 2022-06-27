@@ -8,3 +8,7 @@ services:
     #network_mode: host
     volumes:
       - ./collector.conf:/opt/mongo-shake/collector.conf
+    ports:
+      - 9100:9100
+      - 9101:9101
+      - 9200:9200

@@ -24,17 +24,15 @@ RUN addgroup -g 1000 -S monkeyray \
 WORKDIR /opt/mongo-shake
 
 COPY --chown=monkeyray:monkeyray --from=builder /app/MongoShake/bin/ /opt/mongo-shake/
-COPY --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/collector.conf /opt/mongo-shake/
-COPY --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/receiver.conf /opt/mongo-shake/
+ADD --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/collector.conf /opt/mongo-shake/
+ADD --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/receiver.conf /opt/mongo-shake/
 
 USER monkeyray
 
 # incr_sync.http_port
-EXPOSE 9100
 # full_sync.http_port
-EXPOSE 9101
 # system_profile_port
-EXPOSE 9200
+EXPOSE 9100 9101 9200
 
-ENTRYPOINT ["/opt/mongo-shake/collector"]
+ENTRYPOINT ["./collector"]
 CMD ["-conf=/opt/mongo-shake/collector.conf", "-verbose=2"]

@@ -47,6 +47,12 @@ sudo docker run monkeyray/mongo-shake:latest
 # 使用指定版本镜像
 sudo docker run monkeyray/mongo-shake:v2.7.4
 
+# 监听指定端口
+# 格式为-p host_port:image_port
+# host_port为宿主机监听端口
+# image_port为镜像内监听端口
+sudo docker run -p 9100:9100 -p 9101:9100 -p 9200:9200 monkeyray/mongo-shake:latest
+
 # 使用自定义配置文件
 sudo docker run -v /path/of/collector.conf:/opt/mongo-shake/collector.conf monkeyray/mongo-shake:latest
 
