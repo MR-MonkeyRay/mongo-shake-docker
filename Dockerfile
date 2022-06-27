@@ -24,7 +24,8 @@ RUN addgroup -g 1000 -S monkeyray \
 WORKDIR /opt/mongo-shake
 
 COPY --chown=monkeyray:monkeyray --from=builder /app/MongoShake/bin/ /opt/mongo-shake/
-COPY --chown=monkeyray:monkeyray ./collector.conf /opt/mongo-shake/
+COPY --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/collector.conf /opt/mongo-shake/
+COPY --chown=monkeyray:monkeyray https://raw.githubusercontent.com/alibaba/MongoShake/${VERSION}/conf/receiver.conf /opt/mongo-shake/
 
 USER monkeyray
 

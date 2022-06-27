@@ -1,0 +1,10 @@
+version: '3'
+services:
+  mongo-shake:
+    container_name: mongo-shake
+    image: monkeyray/mongo-shake:latest
+    #command: ["-conf=/opt/mongo-shake/collector.conf", "-verbose=2"]
+    restart: on-failure
+    #network_mode: host
+    volumes:
+      - ./collector.conf:/opt/mongo-shake/collector.conf
