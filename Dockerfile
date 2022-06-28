@@ -5,8 +5,6 @@ WORKDIR /app
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
 &&  apk --no-cache add tzdata ca-certificates musl curl bash make git zip gcc musl-dev
 
-ENV GOPROXY=https://goproxy.cn
-
 ARG VERSION=release-v2.6.6-20220323
 
 RUN git clone https://github.com/alibaba/MongoShake.git -b ${VERSION} \

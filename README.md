@@ -49,6 +49,12 @@ sudo docker run monkeyray/mongo-shake:latest
 # 使用指定版本镜像
 sudo docker run monkeyray/mongo-shake:v2.7.4
 
+# 使用root用户运行容器(默认使用uid和gid均为1000的普通用户)
+sudo docker run -u root monkeyray/mongo-shake:latest
+
+# 后台运行并设置自启动
+sudo docker run -d --restart on-failure monkeyray/mongo-shake:latest
+
 # 监听指定端口
 # 格式为-p host_port:image_port
 # host_port为宿主机监听端口
@@ -60,6 +66,17 @@ sudo docker run -v /path/of/collector.conf:/opt/mongo-shake/collector.conf monke
 
 # 使用自定义参数运行
 sudo docker run monkeyray/mongo-shake:latest -conf=/opt/mongo-shake/collector.conf -verbose=2
+
+# 汇总拼凑一下...
+sudo docker run -d \
+    --restart on-failure \
+    -p 9100:9100 \
+    -p 9101:9100 \
+    -p 9200:9200 \
+    -v /path/of/collector.conf:/opt/mongo-shake/collector.conf \
+    monkeyray/mongo-shake:v2.7.4 \
+    -conf=/opt/mongo-shake/collector.conf \
+    -verbose=2
 ```
 
 ---
@@ -74,7 +91,7 @@ mkdir mongo-shake && cd mongo-shake
 # 下载docker-compose文件
 curl -oL https://github.com/MR-MonkeyRay/mongo-shake-docker/raw/master/docker-compose.yaml
 
-# 启动服务
+# 启动服务并在后台运行
 sudo docker-compose up -d
 
 # 关闭服务
