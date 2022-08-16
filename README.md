@@ -10,7 +10,7 @@ DockerHub地址: [monkeyray/mongo-shake](https://hub.docker.com/r/monkeyray/mong
 
 ## 构建状态
 
-[![构建状态](https://caidog.coding.net/badges/mirai-plugin/job/1279619/master/build.svg)](https://caidog.coding.net/p/mirai-plugin/ci/job)
+[![构建状态](https://monkeyray.coding.net/badges/github/job/1481393/build.svg)](https://monkeyray.coding.net/p/github/ci/job)
 
 ---
 
